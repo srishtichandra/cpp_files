@@ -1,32 +1,24 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+#include "C:\CPP-Assignment\cpp_files\manager.cpp"
 
 #include <vector>
 #include <string>
 
 using namespace std;
 
-class Customer {
-private:
+class Customer : public User {
     string userID;
     string filename;
     string password;
-    int customer_record;
-    int fine_due;
-    int number_of_cars_rented;
-    vector<string> cars_rented;
-
+    string record;
 public:
-   // Customer();
-    //Customer(string ID, string password, int customer_record, int fine_due, int number_of_cars_rented, vector<string> cars_rented);
-    void clear_due(string userID, string carID, string pay);
-    void add(string ID, string password, string customer_record);
-    void update(string ID, string carID);
-    void delete_customer(string ID);
-    void search(string ID);
-    void display();
-    
-
+    void clear_due(string userID, string carID, string pay,string update_record) override;
+    void add(string ID, string password, string record) override;
+    void update(string ID, string carID) override;
+    void deleteUser(string ID) override;
+    void search(string ID) override;
+    void display() override;
+    void modify(string ID, string password, string record, string fine_due, string number_of_cars_rented, string cars_rented) override;
 };
-
-#endif // CUSTOMER_H
+#endif

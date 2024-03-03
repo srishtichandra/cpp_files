@@ -72,11 +72,12 @@ void Car::show_duedate(string ID) {
     }
 }
 
-string Car::return_car(string ID) {
+string Car::return_car(string ID, string condition_in_which_car_returned) {
     auto data = loadCSV("DB/cars.csv");
     for (auto& row : data) {
             if (row[0] == ID) {
                 if (row[4] == "0") {
+                    row[2] = condition_in_which_car_returned;
                     cout << "The car has been returned" ;
                     row[4] = "1";
                     row[5] = "";
@@ -125,7 +126,16 @@ void Car::update(string carID, string Model, string Condition, string LicensePla
             row[4] = to_string(availiblity);
             row[5] = userID;
             row[6] = number_of_days;
-            row[7] = row[7]; // [7] is the due date, so we don't want to change it
+
+            int days = stoi(row[6]);
+            time_t now = time(0); // Get current time
+           time_t dueTime = now + days * 24 * 60 * 60; // Calculate due time in seconds
+          tm* dueTimeInfo = localtime(&dueTime); // Convert due time to tm struct
+
+             row[7] = formatDate(dueTimeInfo); // Format due time and store it in row[7]
+
+
+             // [7] is the due date, so we don't want to change it
             break;
         }
     }
@@ -180,4 +190,14 @@ void Car::display() {
             }
         }
     }
+}
+string Car::car_condition(string ID) {
+    auto data = loadCSV("DB/cars.csv");
+    for (auto& row : data) {
+        if (row[0] == ID) {
+            string val= row[2] ;
+            break;
+        }
+    }
+    return " val";
 }

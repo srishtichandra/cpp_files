@@ -7,31 +7,41 @@
 #include <sstream>  // For stringstream
 #include <vector>
 #include <string>
-
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 using namespace std;
 
-// Function to load data from the CSV file into memory
 vector<vector<string>> loadCSV(const string& filename) {
     vector<vector<string>> data;
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "Error: Unable to open " << filename << endl;
-        return data;
-    }
-
-    string line;
-    while (getline(file, line)) {
-        stringstream ss(line);
-        vector<string> row;
-        string cell;
-        while (getline(ss, cell, ',')) {
-            row.push_back(cell);
+    try {
+        ifstream file(filename);
+        if (!file.is_open()) {
+            cout << "Error: Unable to open " << filename << endl;
+            return data;
         }
-        data.push_back(row);
+
+        string line;
+        while (getline(file, line)) {
+            stringstream ss(line);
+            vector<string> row;
+            string cell;
+            while (getline(ss, cell, ',')) {
+                row.push_back(cell);
+            }
+            data.push_back(row);
+        }
+        file.close();
+    } catch(const ifstream::failure& e) {
+        cerr << "Exception opening/reading file " << filename << ": " << e.what() << endl;
+    } catch(const exception& e) {
+        cerr << "An error occurred: " << e.what() << endl;
     }
-    file.close();
     return data;
 }
+
 #endif // FILE_HANDLING_H
 // void saveCSV(string filename,  vector<vector<string>> data) {
 //     cout << "Saving data to " << filename << endl;

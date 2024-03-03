@@ -4,6 +4,7 @@
 #include "cars.cpp"
 #include "employee.cpp"
 #include "customer.cpp"
+#include "manager.cpp"
 #include "file_handling.cpp"
 #include <iostream>
 #include <string>
@@ -81,6 +82,7 @@ int main() {
         cin >> choice1;
          Car car;
         string carID, Model, Condition, LicensePlate,customer_record, fine_due, number_of_cars_rented;
+        vector<string > cars_rented;
                        // vector<string> cars_rented(stoi(number_of_cars_rented));
         bool availability;
                         string userID;
@@ -88,6 +90,8 @@ int main() {
                         Customer customer;
                         Employee employee;
                         Manager manager;
+                        string condition_in_which_car_was_returned;
+                        
 
         switch (choice1) {            
             case 1:
@@ -105,6 +109,7 @@ int main() {
                         Customer customer;
                         string carID;
                         string pay;
+                        int additional_payment;
 
                         switch (choice2) {
                             case 1:
@@ -126,13 +131,16 @@ int main() {
                             case 4:
                                 cout << "Enter the car ID: ";
                                 cin >> carID;
-                 
-                                pay= car.return_car(carID);
-                                cout << "Pay this amount" << pay << endl;
-                                customer.clear_due(userID,carID,pay);
+                                cout << "Enter the condition in which the car was returned: ";
+                                cin >> condition_in_which_car_was_returned;
+                                pay = car.return_car(carID, condition_in_which_car_was_returned);
+                                additional_payment = 1000 * (stoi(car.car_condition(carID)) - stoi(condition_in_which_car_was_returned));
+                                pay = to_string(stoi(pay) + additional_payment);
+                                cout << "Pay this amount: " << pay << endl;
+                                customer.clear_due(userID, carID, pay,to_string(stoi(car.car_condition(carID)) - stoi(condition_in_which_car_was_returned)));
                                 break;
                             case 5:
-                                cout << "Enter the car ID: ";
+                                cout << "Enter the car ID:";
                                 cin >> carID;
                                 car.show_duedate(carID);
                                 break;
@@ -160,7 +168,10 @@ int main() {
                         Car car;
                         Employee employee;
                         string carID;
+                        string pay;
+                        int additional_payment;
                         switch (choice2) {
+                            
                             case 1:
                                 car.display();
                                 break;
@@ -179,9 +190,16 @@ int main() {
                                 car.search(carID);
                                 break;
                             case 4:
+                                 cout << "Enter the car ID: ";
                                 cout << "Enter the car ID: ";
-                                cin >> carID;
-                                cout << "Pay this amount" << car.return_car(carID);
+                                 cin >> carID;
+                                cout << "Enter the condition in which the car was returned: ";
+                                cin >> condition_in_which_car_was_returned;
+                                pay = car.return_car(carID, condition_in_which_car_was_returned);
+                                additional_payment = 1000 * (stoi(car.car_condition(carID)) - stoi(condition_in_which_car_was_returned));
+                                pay = to_string(stoi(pay) + additional_payment);
+                                cout << "Pay this amount: " << pay << endl;
+                                customer.clear_due(userID, carID, pay,to_string(stoi(car.car_condition(carID)) - stoi(condition_in_which_car_was_returned)));
                                 break;
                             case 5:
                                 cout << "Enter the car ID: ";
@@ -211,15 +229,18 @@ int main() {
                         cout << "3. Update a car" << endl;
                         cout << "4. Delete a car" << endl;
                         cout << "5. Search a car" << endl;
-                        cout << "6 Display customers" << endl;
-                        cout << "7. Add a customer" << endl;                       
-                        cout << "8. Delete a customer" << endl;
-                        cout << "9. Search a customer" << endl;
-                        cout << "10. Display employees" << endl;
-                        cout << "11. Add an employee" << endl;                       
-                        cout << "12. Delete an employee" << endl;
-                        cout << "13. Search an employee" << endl;
-                        cout << "14. Exit" << endl;
+                        cout << "6. Modify a car  " << endl;
+                        cout << "7. Display customers" << endl;
+                        cout << "8. Add a customer" << endl;                       
+                        cout << "9. Delete a customer" << endl;
+                        cout << "10. Search a customer" << endl;
+                        cout << "11. Modify a customer  " << endl;
+                        cout << "12. Display employees" << endl;
+                        cout << "13. Add an employee" << endl;                       
+                        cout << "14. Delete an employee" << endl;
+                        cout << "15. Search an employee" << endl;
+                        cout << "16. Modify an employee  " << endl;
+                        cout << "17. Exit" << endl;
                         cout << "Enter your choice: ";
                         cin >> choice2;
                        
@@ -247,7 +268,7 @@ int main() {
                                 cin >> Condition;
                                 cout << "Enter the license plate: ";
                                 cin >> LicensePlate;
-                                cout << "Enter the availability: ";
+                                cout << "Enter the availability(enter 0 if not available , 1 if available): ";
                                 cin >> availability;
                                 cout << "Enter the user ID: ";
                                 cin >> userID;
@@ -266,9 +287,27 @@ int main() {
                                 car.search(carID);
                                 break;
                             case 6:
+                                cout << "Enter the car ID: ";
+                                cin >> carID;
+                                car.search(carID);                                
+                                cout << "Enter the new model: ";
+                                cin >> Model;
+                                cout << "Enter the new condition: ";
+                                cin >> Condition;
+                                cout << "Enter the new license plate: ";
+                                cin >> LicensePlate;
+                                cout << "Enter the availability: ";
+                                cin >> availability;
+                                // cout << "Enter the user ID: ";
+                                // cin >> userID;
+                                cout << "Enter the number of days: ";
+                                cin >> number_of_days;
+                                car.update(carID, Model, Condition, LicensePlate, availability, userID, number_of_days);
+                                break;    
+                            case 7:
                                 customer.display();
-                                break;
-                            case 7: 
+                                break;                                             
+                            case 8: 
                                 cout << "Enter the customer ID: ";
                                 cin >> userID;
                                 cout << "Enter the password: ";
@@ -277,42 +316,86 @@ int main() {
                                 cin >> customer_record;                            
 
                                 customer.add(userID, password, (customer_record));
-                                break;
-                            case 8:
-                                cout << "Enter the customer ID: ";
-                                cin >> userID;
-                                customer.delete_customer(userID);
                                 break;
                             case 9:
                                 cout << "Enter the customer ID: ";
                                 cin >> userID;
-                                customer.search(userID);
+                                customer.deleteUser(userID);
                                 break;
                             case 10:
-                                customer.display();
-                                break;
-                            case 11: 
                                 cout << "Enter the customer ID: ";
                                 cin >> userID;
+                                customer.search(userID);
+                                break;
+                            case 11:
+                                cout << "Enter the customer ID: ";
+                                cin >> userID;
+                                customer.search(userID);
                                 cout << "Enter the password: ";
                                 cin >> password;
                                 cout << "Enter the customer record: ";
-                                cin >> customer_record;                            
-
-                                customer.add(userID, password, (customer_record));
+                                cin >> customer_record;
+                                cout << "Enter the fine due: ";
+                                cin >> fine_due;
+                                cout << "Enter the number of cars rented: ";
+                                cin >> number_of_cars_rented;
+                                cout << "Enter the cars rented: ";
+                                for(int i=0; i<stoi(number_of_cars_rented);i++){
+                                    string carID;
+                                    cin >> carID;
+                                    cars_rented.push_back(carID);
+                                }
+                                vectorToStringWithSpaces(cars_rented);
+                                
+                                customer.modify(userID, password, customer_record, fine_due, number_of_cars_rented, vectorToStringWithSpaces(cars_rented));
                                 break;
-                            case 12:
-                                cout << "Enter the customer ID: ";
-                                cin >> userID;
-                                customer.delete_customer(userID);
+                            case 12: 
+                                employee.display();
                                 break;
                             case 13:
-                                cout << "Enter the customer ID: ";
+                                cout << "Enter the employee ID: ";
                                 cin >> userID;
-                                customer.search(userID);
+                                cout << "Enter the password: ";
+                                cin >> password;
+                                cout << "Enter the employee record: ";
+                                cin >> customer_record;                            
+
+                                employee.add(userID, password, (customer_record));
+                                break;
+                            case 14:
+                                cout << "Enter the employee ID: ";
+                                cin >> userID;
+                                employee.deleteUser(userID);
+                                  
+                            case 15:
+                                cout << "Enter the employee ID: ";
+                                cin >> userID;
+                                employee.search(userID);
                                 break;
 
-                            case 14:
+                            case 16:
+                                cout << "Enter the employee ID: ";
+                                cin >> userID;
+                                employee.search(userID);
+                                cout << "Enter the password: ";
+                                cin >> password;
+                                cout << "Enter the employee record: ";
+                                cin >> customer_record;
+                                cout << "Enter the fine due: ";
+                                cin >> fine_due;
+                                cout << "Enter the number of cars rented: ";
+                                cin >> number_of_cars_rented;
+                                cout << "Enter the cars rented: ";
+                                for(int i=0; i<stoi(number_of_cars_rented);i++){
+                                    string carID;
+                                    cin >> carID;
+                                    cars_rented.push_back(carID);
+                                }
+                                vectorToStringWithSpaces(cars_rented);
+                                
+                                employee.modify(userID, password, customer_record, fine_due, number_of_cars_rented, vectorToStringWithSpaces(cars_rented));
+                                break;
+                            case 17:    
                              cout << "Exiting program..." << endl;
                                 break;
                             default:
@@ -320,7 +403,7 @@ int main() {
                                 break;                                        
                           
                         }
-                    } while (choice2 != 10);
+                    } while (choice2 != 17);
                 }
                 else{
                     cout << "Invalid user ID or password." << endl;

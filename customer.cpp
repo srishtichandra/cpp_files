@@ -32,7 +32,7 @@ void Customer::update(string ID,string carID) {
     saveCSV("Db/customer.csv", data);
 }
 
-void Customer::delete_customer(string ID) {
+void Customer::deleteUser(string ID) {
     // Load data from the CSV file
     vector<vector<string>> data = loadCSV("DB/customer.csv");
     for (auto it = data.begin(); it != data.end(); ++it) {
@@ -58,15 +58,17 @@ void Customer::search(string ID) {
         }
     }
 }
-void Customer::clear_due(string userID ,string carID, string pay) {
+void Customer::clear_due(string userID ,string carID, string pay, string update_record) {
     // Load data from the CSV file
     vector<vector<string>> data = loadCSV("DB/customer.csv");
+
     for (auto& row : data) {
         if (row[0] == userID) {
-
+            row[2] = to_string(stoi(row[2]) -  stoi(update_record)*0.5);
             row[3] = to_string(stoi(row[3]) - stoi(pay));
             row[4] = to_string(stoi(row[4]) - 1);
             row[5] = deleteWord(row[5], carID);
+
             break;
         }
     }
@@ -83,4 +85,21 @@ void Customer::display() {
         cout << "Cars Rented: " << row[5] << endl;
     }
     cout << "-----------------------------------\n";
+}
+void Customer::modify(string ID, string password, string customer_record, string fine_due, string number_of_cars_rented, string cars_rented) {
+    // Load data from the CSV file
+    vector<vector<string>> data = loadCSV("DB/customer.csv");
+
+    for (auto& row : data) {
+        if (row[0] == ID) {
+            row[1] = password;
+            row[2] = customer_record;
+            row[3] = fine_due;
+            row[4] = number_of_cars_rented;
+            row[5] = cars_rented;
+            break;
+        }
+    }
+
+    saveCSV("DB/customer.csv", data);
 }
