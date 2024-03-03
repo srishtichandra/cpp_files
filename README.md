@@ -41,7 +41,7 @@ This project is a car rental system implemented in C++ using Object-Oriented Pro
 - **file_handling**: Contains the base user class and all the functions that that interact with the csv files
 - **cars.cpp**:Contains the functions and their definations that were mentioned in cars.hpp
 - **customer.cpp**:Contains the functions and their definations that were mentioned in customer.hpp
-- **manager.cpp**:Contains the functions and their definations that were mentioned in manager.hpp
+- **manager.cpp**:Contains the functions and their definations that were mentioned in manager.hpp it also contains the base class "User" for the derived classes "Employee" and "Customer".
 - **codes.cpp**:Contains the all functions and the maintains a responsive system
 
 
