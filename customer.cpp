@@ -20,6 +20,7 @@ void Customer::update(string ID,string carID) {
     // Load data from the CSV file
     //the customer will rent a car then the carID will be added to the cars_rented vector , number of cars rented will be incremented by 1
     vector<vector<string>> data = loadCSV("DB/customer.csv");
+    cout << "Updating customer record\n";
     
     for(auto& row : data){
         if(row[0] == ID){

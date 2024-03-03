@@ -69,7 +69,7 @@ void displayMainMenu() {
     displayMenuOption("1. Customer Login");
     displayMenuOption("2. Employee Login");
     displayMenuOption("3. Manager Login" );
-    displayMenuOption("3. Exit"          );
+    displayMenuOption("4. Exit"          );
 }
 
 int main() {
@@ -110,6 +110,7 @@ int main() {
                         string carID;
                         string pay;
                         int additional_payment;
+                        int number_of_days; 
 
                         switch (choice2) {
                             case 1:
@@ -117,7 +118,7 @@ int main() {
                                 break;
                             case 2:
                                 cout << "Enter the car ID: ";
-                                cin >> carID; int number_of_days; 
+                                cin >> carID; 
                                 cout << "Enter the number of days you want to rent the car from today: ";
                                 cin >> number_of_days;
                                 car.request(carID, userID, to_string(number_of_days));
