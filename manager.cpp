@@ -29,13 +29,19 @@ protected:
     vector<string> cars_rented;
 
 public:
-    virtual void clear_due(string userID, string carID, string pay,string update_record) = 0;
-    virtual void add(string ID, string password, string record) = 0;
-    virtual void update(string ID, string carID,string number_of_days) = 0;
-    virtual void deleteUser(string ID) = 0;
-    virtual void search(string ID) = 0;
-    virtual void display() = 0;
-    virtual void modify(string ID, string password, string record, string fine_due, string number_of_cars_rented, string cars_rented) = 0;
-    
-    // Add any other common functions or data members here
+     void gtID(string ID) {
+        userID = ID;    
+    }
+    void gtPassword(string pass) {
+        password = pass;
+    }
+    void gtRecord(int rec) {
+        record = rec;
+    }
+    void gtFine_due(int fine) {
+        fine_due = fine;
+    }
+    void gtNumber_of_cars_rented(int num) {
+        number_of_cars_rented = num;
+    }
 };

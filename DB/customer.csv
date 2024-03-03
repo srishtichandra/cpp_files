@@ -1,7 +1,7 @@
 user1,pass1,6,0,0,,
 user2,pass2,7,1000,1,car7,
 user3,pass3,9,500,2,car3 car5,
-user4,pass4,10,0,0,,
+user4,pass4,3,300,1, car9,
 user5,pass5,6,0,0,,
-user6,pass6,7,600,1,car6,
+user6,pass6,3,900,2,car6 car7 ,
 

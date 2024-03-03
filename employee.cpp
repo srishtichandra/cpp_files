@@ -23,7 +23,7 @@ void Employee::update(string ID, string carID, string number_of_days) {
                 row[2] = number_of_days;
                 row[3]= to_string(stoi(row[3]) + stoi(number_of_days)*100);
                 row[4] = to_string(stoi(row[4]) + 1);
-                row[5] += carID + " ";
+                row[5] += " " + carID  ;
                 
             }
             else{
