@@ -31,7 +31,7 @@ protected:
 public:
     virtual void clear_due(string userID, string carID, string pay,string update_record) = 0;
     virtual void add(string ID, string password, string record) = 0;
-    virtual void update(string ID, string carID) = 0;
+    virtual void update(string ID, string carID,string number_of_days) = 0;
     virtual void deleteUser(string ID) = 0;
     virtual void search(string ID) = 0;
     virtual void display() = 0;

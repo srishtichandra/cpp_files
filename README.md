@@ -10,8 +10,8 @@ This project is a car rental system implemented in C++ using Object-Oriented Pro
 
 ### Functionalities:
 1. **Records Management**:
-   - Keep records of cars rented per customer/employee.
-   - Update customer_record and employee_record based on various factors such as late return, damage caused, and condition of the returned car.
+   - Records of cars rented per customer/employee have been maintained and is updated .
+   - Customer_record and employee_record are updated based on various factors such as late return, damage caused, and condition of the returned car.
 
 2. **Database Management**:
    - Separate databases for customers, employees, and cars are maintained in the 'CSV' format.
@@ -74,7 +74,7 @@ git clone https://github.com/srishtichandra/cpp_files.git
 ```
 Run the code below to compile the files and create an executable file.
 ```
-g++ -std=c++17 main.cpp
+g++ -std=c++17 codes.cpp
 ```
 Run the created executable file by running below code.
 ```

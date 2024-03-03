@@ -117,12 +117,15 @@ int main() {
                                 car.display();
                                 break;
                             case 2:
+                                cout <<"Enter User ID: ";
+                                cin >> userID;
                                 cout << "Enter the car ID: ";
                                 cin >> carID; 
                                 cout << "Enter the number of days you want to rent the car from today: ";
                                 cin >> number_of_days;
+                                
                                 car.request(carID, userID, to_string(number_of_days));
-                                customer.update(userID, carID);
+                                customer.update(userID, carID, to_string(number_of_days));
                                 break;
                             case 3:
                                 cout << "Enter the car ID: ";
@@ -177,12 +180,14 @@ int main() {
                                 car.display();
                                 break;
                             case 2:
+                                cout << "Enter the user ID: ";
+                                cin >> userID;
                                 cout << "Enter the car ID: ";
                                 cin >> carID;int number_of_days;
                               cout << "Enter the number of days you want to rent the car from today: ";
                                 cin >> number_of_days;
                                 car.request(carID,userID, to_string(number_of_days));
-                                employee.update(userID, carID);
+                                employee.update(userID, carID, to_string(number_of_days));
 
                                 break;
                             case 3:

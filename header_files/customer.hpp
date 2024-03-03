@@ -8,14 +8,10 @@
 using namespace std;
 
 class Customer : public User {
-    string userID;
-    string filename;
-    string password;
-    string record;
 public:
-    void clear_due(string userID, string carID, string pay,string update_record) override;
+    void clear_due(string userID, string carID, string pay,string customer_record) override;
     void add(string ID, string password, string record) override;
-    void update(string ID, string carID) override;
+    void update(string ID, string carID,string number_of_days) override;
     void deleteUser(string ID) override;
     void search(string ID) override;
     void display() override;

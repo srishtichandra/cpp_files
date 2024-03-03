@@ -16,7 +16,7 @@ void Customer::add(string ID, string password, string customer_record) {
     saveCSV("DB/customer.csv", data);
 }
 
-void Customer::update(string ID,string carID) {
+void Customer::update(string ID,string carID, string number_of_days) {
     // Load data from the CSV file
     //the customer will rent a car then the carID will be added to the cars_rented vector , number of cars rented will be incremented by 1
     vector<vector<string>> data = loadCSV("DB/customer.csv");
@@ -24,13 +24,20 @@ void Customer::update(string ID,string carID) {
     
     for(auto& row : data){
         if(row[0] == ID){
-            row[4] = to_string(stoi(row[4]) + 1);
-            row[5] += carID + " ";
+            if(stoi(row[2])> stoi(row[4])) {
+                row[2] = number_of_days;
+                row[3]= to_string(stoi(row[3]) + stoi(number_of_days)*100);
+                row[4] = to_string(stoi(row[4]) + 1);
+                row[5] += carID + " ";
+                
+            }
+            else{
+                cout << "You have reached the maximum number of cars rented\n";
+            }
             break;
         }
-    }
-    
-    saveCSV("Db/customer.csv", data);
+    }    
+    saveCSV("DB/customer.csv", data);
 }
 
 void Customer::deleteUser(string ID) {

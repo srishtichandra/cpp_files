@@ -13,17 +13,25 @@ void Employee::add(string ID, string password, string Employee_record) {
     data.push_back({ID, password, Employee_record, "0", "0", ""});
     saveCSV("DB/employee.csv", data);
 }
-void Employee::update(string ID, string carID) {
+void Employee::update(string ID, string carID, string number_of_days) {
     // Load data from the CSV file
     vector<vector<string>> data = loadCSV("DB/employee.csv");
 
-    for (auto& row : data) {
-        if (row[0] == ID) {
-            row[4] = to_string(stoi(row[4]) + 1);
-            row[5] += carID + " ";
+    for(auto& row : data){
+        if(row[0] == ID){
+            if(stoi(row[2])> stoi(row[4])) {
+                row[2] = number_of_days;
+                row[3]= to_string(stoi(row[3]) + stoi(number_of_days)*100);
+                row[4] = to_string(stoi(row[4]) + 1);
+                row[5] += carID + " ";
+                
+            }
+            else{
+                cout << "You have reached the maximum number of cars rented\n";
+            }
             break;
         }
-    }
+    }    
 
     saveCSV("DB/employee.csv", data);
 }

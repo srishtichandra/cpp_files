@@ -119,7 +119,7 @@ void Car::add(string carID, string Model, string Condition, string LicensePlate)
 void Car::update(string carID, string Model, string Condition, string LicensePlate, bool availiblity, string userID, string number_of_days) {
     auto data = loadCSV("DB/cars.csv");
     for (auto& row : data) {
-        if (row[0] == carID) {
+        if (row[0] == carID && row[4] == "1") {
             row[1] = Model;
             row[2] = Condition;
             row[3] = LicensePlate;
@@ -136,8 +136,12 @@ void Car::update(string carID, string Model, string Condition, string LicensePla
 
 
              // [7] is the due date, so we don't want to change it
-            break;
+           
         }
+        else{
+            cout << "The car is not available" << endl;
+        }
+         break;
     }
     saveCSV("DB/cars.csv", data);
 }
