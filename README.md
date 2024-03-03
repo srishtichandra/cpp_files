@@ -7,6 +7,13 @@
 This project is a car rental system implemented in C++ using Object-Oriented Programming (OOP) concepts. The system is designed to operate via a command-line interface and includes functionalities for managing records of cars rented per customer or employee, maintaining databases for customers, employees, and cars, and providing different privileges to customers, employees, and managers.
 
 ---
+### Assumption:
+- A user can rent cars only upto his/her customer records.
+- If a customer/employee delayed the returning of his acr for n days his record depriciates by n/2.
+- Admin can modify cars only when they are not rented.
+- If a user has multiple rented cars then in the CSV files then the carTDs are displayed as a single string separated by space.
+
+---
 
 ### Functionalities:
 1. **Records Management**:
