@@ -46,7 +46,7 @@ This project is a car rental system implemented in C++ using Object-Oriented Pro
 
 
 
-- **
+
 
 
 ---
